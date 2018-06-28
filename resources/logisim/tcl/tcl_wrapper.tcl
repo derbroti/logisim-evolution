@@ -84,8 +84,9 @@ proc force2 {signal value} {
 	global $signal_name
 
 	#echo "Forcing signal $signal_name to $value"
+	if {$value != "E"} {
 	set $signal_name $value
-
+	}
 	# Asynchronous not supported
 	#send_socket $channel "[getName $signal]:$value"
 }

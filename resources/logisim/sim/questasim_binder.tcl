@@ -61,18 +61,20 @@ proc MessageReceived {channel} {
 
 				# If signal is "in"
 				if {$type == 1} {
+					if {$value != "e" && $value != "E" } {
 					# Drive simulation signal (force signal, no internal logic changes possible)
 					if {[catch {force -freeze sim:/top_sim/$name $value} errmsg]} {
 						puts "Error forcing simulation signal: $errmsg"
 					}
-
+}
 				# If signal is "inout"
 				} elseif {$type == 3} {
 
+					if {$value != "e" && $value != "E" } {
 					# Use deposit so value can be changed by internal logic
 					if {[catch {force -deposit sim:/top_sim/$name $value} errmsg]} {
 						puts "Error forcing simulation signal: $errmsg"
-					}
+					 }}
 				}
 			}
 
