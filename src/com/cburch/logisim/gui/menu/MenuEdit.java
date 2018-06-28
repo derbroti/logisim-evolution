@@ -127,7 +127,7 @@ class MenuEdit extends Menu {
 		int menuMask = getToolkit().getMenuShortcutKeyMask();
 		undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, menuMask));
 		redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, menuMask
-				| KeyEvent.SHIFT_DOWN_MASK));
+				 | KeyEvent.SHIFT_DOWN_MASK));
 		cut.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, menuMask));
 		copy.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, menuMask));
 		paste.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, menuMask));
