@@ -38,8 +38,8 @@ import com.cburch.logisim.prefs.AppPreferences;
 class RegisterData extends ClockState implements InstanceData {
 	Value value;
 
-	public RegisterData(BitWidth width) {
-		value = (AppPreferences.Memory_Startup_Unknown.get()) ? Value.createUnknown(width) : Value.createKnown(width, 0);
+	public RegisterData(BitWidth width, int init) {
+		value = (AppPreferences.Memory_Startup_Unknown.get()) ? Value.createUnknown(width) : Value.createKnown(width, init );
 	}
 
 	public Value getValue() {

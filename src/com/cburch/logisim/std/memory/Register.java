@@ -146,12 +146,15 @@ public class Register extends InstanceFactory {
 	public static final Attribute<Boolean> ATTR_SHOW_IN_TAB = Attributes
 			.forBoolean("showInTab", Strings.getter("registerShowInTab"));
 
+        static final Attribute<Integer> ATTR_INIT = Attributes.forHexInteger("init",
+                        Strings.getter("registerInitAttr")); 
+
 	public Register() {
 		super("Register", Strings.getter("registerComponent"));
 		setAttributes(new Attribute[] { StdAttr.WIDTH, StdAttr.TRIGGER,
-				StdAttr.LABEL, StdAttr.LABEL_FONT, ATTR_SHOW_IN_TAB, },
+				StdAttr.LABEL, StdAttr.LABEL_FONT, ATTR_SHOW_IN_TAB, ATTR_INIT,  },
 				new Object[] { BitWidth.create(8), StdAttr.TRIG_RISING, "",
-						StdAttr.DEFAULT_LABEL_FONT, false, });
+						StdAttr.DEFAULT_LABEL_FONT, false, 0, });
 		setKeyConfigurator(new BitWidthConfigurator(StdAttr.WIDTH));
 		setOffsetBounds(Bounds.create(0, 0, Xsize, Ysize));
 		setIconName("register.gif");
@@ -236,9 +239,10 @@ public class Register extends InstanceFactory {
 		BitWidth dataWidth = state.getAttributeValue(StdAttr.WIDTH);
 		Object triggerType = state.getAttributeValue(StdAttr.TRIGGER);
 		RegisterData data = (RegisterData) state.getData();
+                int init = state.getAttributeValue(ATTR_INIT).intValue();
 
 		if (data == null) {
-			data = new RegisterData(dataWidth);
+			data = new RegisterData(dataWidth, init);
 			state.setData(data);
 		}
 
@@ -246,7 +250,7 @@ public class Register extends InstanceFactory {
 				triggerType);
 
 		if (state.getPortValue(CLR) == Value.TRUE) {
-			data.value = Value.createKnown(dataWidth, 0);
+			data.value = Value.createKnown(dataWidth, init);
 		} else if (triggered && state.getPortValue(EN) != Value.FALSE) {
 			Value in = state.getPortValue(IN);
 			data.value = in;

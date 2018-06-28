@@ -74,6 +74,9 @@ public class Counter extends InstanceFactory {
 	static final Attribute<Integer> ATTR_MAX = Attributes.forHexInteger("max",
 			Strings.getter("counterMaxAttr"));
 
+	static final Attribute<Integer> ATTR_INIT = Attributes.forHexInteger("init",
+                        Strings.getter("registerInitAttr")); 
+
 	static final Attribute<AttributeOption> ATTR_ON_GOAL = Attributes
 			.forOption("ongoal", Strings.getter("counterGoalAttr"),
 					new AttributeOption[] { ON_GOAL_WRAP, ON_GOAL_STAY,
@@ -406,7 +409,8 @@ public class Counter extends InstanceFactory {
 	public void propagate(InstanceState state) {
 		RegisterData data = (RegisterData) state.getData();
 		if (data == null) {
-			data = new RegisterData(state.getAttributeValue(StdAttr.WIDTH));
+			int init = state.getAttributeValue(ATTR_INIT).intValue();
+			data = new RegisterData(state.getAttributeValue(StdAttr.WIDTH), init);
 			state.setData(data);
 		}
 
